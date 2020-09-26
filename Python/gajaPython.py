@@ -7,20 +7,30 @@ i=0
 x=[]
 luz=[]
 temp=[]
+hum=[]
 rawString = arduino.readline()
+print(rawString)
 e=[float(x) for x in rawString.strip().split()]
+print(e)
 luz.append(e[0])
 temp.append(e[1])
+hum.append(e[2])
 x.append(i)
 i+=1
 plt.ion()
-fig, ax = plt.subplots(2)
-line1, = ax[0].plot(luz, 'r-')
-line2, = ax[1].plot(temp, 'k-')
+fig, ax = plt.subplots(3)
+line1, = ax[0].plot(x,luz, 'r-')
+line2, = ax[1].plot(x,temp, 'k-')
+line3, = ax[2].plot(x,hum, 'g-')
+ax[0].set_ylabel("Luz [lux]")
+ax[1].set_ylabel("Temperatura [ºC]")
+ax[2].set_ylabel("Humedad [ohms]")
 ax[0].set_autoscale_on(True) # enable autoscale
 ax[0].autoscale_view(True,True,True)
 ax[1].set_autoscale_on(True) # enable autoscale
 ax[1].autoscale_view(True,True,True)
+ax[2].set_autoscale_on(True) # enable autoscale
+ax[2].autoscale_view(True,True,True)
 while(True):
 	rawString = arduino.readline()
 	e=[float(x) for x in rawString.strip().split()]
@@ -28,13 +38,18 @@ while(True):
 	i+=1
 	luz.append(e[0])
 	temp.append(e[1])
+	hum.append(e[2])
 	line1.set_ydata(luz)
 	line2.set_ydata(temp)
+	line3.set_ydata(hum)
 	line1.set_xdata(x)
 	line2.set_xdata(x)
+	line3.set_xdata(x)
 	ax[0].relim()        # Recalculate limits
 	ax[0].autoscale_view(True,True,True) #Autoscale	plt.draw()
 	ax[1].relim()        # Recalculate limits
 	ax[1].autoscale_view(True,True,True) #Autoscale	plt.draw()
+	ax[2].relim()        # Recalculate limits
+	ax[2].autoscale_view(True,True,True) #Autoscale	plt.draw()
 	plt.pause(0.0001)
 arduino.close()	
