@@ -1,7 +1,7 @@
 //datos Luz
 #define R1 50 //Kohms
 //datos Humedad
-#define R2 220 //oms
+#define R2 10 //oms
 
 #define Nmedia 100
 double Temp();
@@ -16,7 +16,7 @@ void loop() {
   int t1=millis();
   Serial.print(Luz());Serial.print("\t");Serial.print(Temp());;Serial.print("\t");Serial.print(Hum());
   Serial.println();
-  delay(200);        // delay in between reads for stability
+  delay(1000);        // delay in between reads for stability
 
 }
 
@@ -35,7 +35,7 @@ double Temp(){
   for(int i=0;i<Nmedia;i++){
     s+= 1.0*(analogRead(A1))/1024;
   }
-  return s/Nmedia/0.01;
+  return 5.*s/Nmedia/0.01;
 }
 double Hum(){
   //salida Hum[ºC]=inversa de la resistencia
@@ -43,6 +43,7 @@ double Hum(){
   for(int i=0;i<Nmedia;i++){
     s+= 1.*(analogRead(A2))/1024;
   }
-  return R2*(s/Nmedia)/(1.-s/Nmedia);
-//  return (s/Nmedia);
+  ///Sw=(R0/Rt)**(1/n)  n=2, r0==resistividad Sw=1
+  return sqrt(1.7/(R2*(s/Nmedia)/(1.-s/Nmedia)));
+//  return 5.*(s/Nmedia);
 }
