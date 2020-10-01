@@ -24,14 +24,14 @@ line2, = ax[1].plot(x,temp, 'k-')
 line3, = ax[2].plot(x,hum, 'g-')
 ax[0].set_ylabel("Luz [lux]")
 ax[1].set_ylabel("Temperatura [ºC]")
-ax[2].set_ylabel("Saturacion Agua ")
+ax[2].set_ylabel("R [Kohms]")
 ax[0].set_autoscale_on(True) # enable autoscale
 ax[0].autoscale_view(True,True,True)
 ax[1].set_autoscale_on(True) # enable autoscale
 ax[1].autoscale_view(True,True,True)
 ax[2].set_autoscale_on(True) # enable autoscale
 ax[2].autoscale_view(True,True,True)
-
+R0=2.8
 file=open("datos.dat","w")
 while(True):
 	rawString = arduino.readline()

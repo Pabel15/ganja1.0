@@ -1,9 +1,9 @@
 //datos Luz
 #define R1 50 //Kohms
 //datos Humedad
-#define R2 10 //oms
+#define R2 10 //Koms
 
-#define Nmedia 100
+#define Nmedia 1000
 double Temp();
 double Luz();
 double Hum();
@@ -44,6 +44,7 @@ double Hum(){
     s+= 1.*(analogRead(A2))/1024;
   }
   ///Sw=(R0/Rt)**(1/n)  n=2, r0==resistividad Sw=1
-  return sqrt(1.7/(R2*(s/Nmedia)/(1.-s/Nmedia)));
-//  return 5.*(s/Nmedia);
+//  return sqrt(1.7/(R2*(s/Nmedia)/(1.-s/Nmedia)));
+  return 5.*(s/Nmedia);
+//  return R2*(s/Nmedia)/(1.-s/Nmedia);
 }
