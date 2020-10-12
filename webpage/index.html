@@ -1,0 +1,49 @@
+<html>
+<head><title>GanjaSaveData</title>
+<script type="text/javascript">
+function miFuncion(){
+	var query = window.location.search;
+//	alert("todo: " + query);
+    let result = document.querySelector('.result'); 
+	var qs = query.substring(1, query.length);
+	
+	var splittedqs = qs.split("=");
+//	alert("variable : " + splittedqs[0]);
+//	alert("valor : " + splittedqs[1]);
+	
+    // Creating a XHR object 
+    let xhr = new XMLHttpRequest(); 
+    let url = "submit.php"; 
+
+    // open a connection 
+    xhr.open("POST", url, true); 
+
+    // Set the request header i.e. which type of content you are sending 
+    xhr.setRequestHeader("Content-Type", "application/json"); 
+
+    // Create a state change callback 
+    xhr.onreadystatechange = function () { 
+        if (xhr.readyState === 4 && xhr.status === 200) { 
+
+            // Print received data from server 
+            result.innerHTML = this.responseText; 
+
+        } 
+    }; 
+
+    // Converting JSON data to string 
+    var data = JSON.stringify({ "variable": splittedqs[0], "valor":  splittedqs[1] }); 
+
+    // Sending data with the request 
+    xhr.send(data); 
+
+}
+</script>
+
+</head>
+<body onload="miFuncion()">
+ <!-- For printing result from server -->
+    aca deberia imprimir resultados<br>
+	<p class="result" style="color:green"></p> 
+</body>
+</html>
